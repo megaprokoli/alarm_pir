@@ -10,6 +10,9 @@ class EventListener(Thread):
         self.callback = callback
 
     def run(self):
+        if self.callback is None or self.event is None:
+            return
+
         while True:
             if self.event():
                 self.callback()
