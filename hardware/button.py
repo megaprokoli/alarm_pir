@@ -9,6 +9,8 @@ class Button:
         self.on_event = EventListener(event=self.is_on(), callback=callback_on)
         self.off_event = EventListener(event=self.is_off(), callback=callback_off)
 
+        GPIO.setup(self.port, GPIO.IN)
+
     def is_on(self):
         return GPIO.input(self.port) == GPIO.HIGH
 

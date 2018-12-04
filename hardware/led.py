@@ -8,7 +8,6 @@ class Led:
         self.gport = green_port
         self.rport = red_port
 
-        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.gport, GPIO.OUT)
         GPIO.setup(self.rport, GPIO.OUT)
 
