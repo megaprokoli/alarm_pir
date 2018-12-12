@@ -1,18 +1,22 @@
 import RPi.GPIO as GPIO
-from events.event_listener import EventListener
+import constants
 
 
 class Button:
 
-    def __init__(self, port, callback_off=None, callback_on=None):
-        self.port = port
-        self.on_event = EventListener(event=self.is_on(), callback=callback_on)
-        self.off_event = EventListener(event=self.is_off(), callback=callback_off)
+    def __init__(self, channel):
+        self.channel = channel
+        self.is_on = False
+        self.last_state = 0
 
-        GPIO.setup(self.port, GPIO.IN)
+        GPIO.setup(self.channel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-    def is_on(self):
-        return GPIO.input(self.port) == GPIO.HIGH
+    def triggered(self):
+        input = GPIO.input(self.channel)
+        return input == GPIO.LOW
 
-    def is_off(self):
-        return not self.is_on()
+    def switch(self):   # TODO in callback
+        self.is_on = not self.is_on
+        constants.ACTIVE = self.is_on
+
+        print("System State: ", constants.ACTIVE)

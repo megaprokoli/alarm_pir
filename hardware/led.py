@@ -11,21 +11,28 @@ class Led:
         GPIO.setup(self.gport, GPIO.OUT)
         GPIO.setup(self.rport, GPIO.OUT)
 
-    def turn_red(self):
+    def turn_red(self, t=0):
         GPIO.output(self.gport, GPIO.LOW)
         GPIO.output(self.rport, GPIO.HIGH)
 
-    def turn_green(self):
+        if t != 0:
+            time.sleep(t)
+            self.turn_off()
+
+    def turn_green(self, t=0):
         GPIO.output(self.rport, GPIO.LOW)
         GPIO.output(self.gport, GPIO.HIGH)
+
+        if t != 0:
+            time.sleep(t)
+            self.turn_off()
 
     def turn_off(self):
         GPIO.output(self.rport, GPIO.LOW)
         GPIO.output(self.gport, GPIO.LOW)
 
     def test(self):
-        self.turn_red()
-        time.sleep(2)
-        self.turn_green()
-        time.sleep(2)
-        self.turn_off()
+        print("testing LED...")
+
+        self.turn_red(2)
+        self.turn_green(2)

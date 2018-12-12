@@ -7,3 +7,5 @@ ACTIVE = False
 TRIGGERED = False
 RECEIVE_MAIL = config.get("DEFAULT", "receiveMail")
 SEND_MAIL = config.get("DEFAULT", "sendMail")
+
+ACTIVE_EV = list()
